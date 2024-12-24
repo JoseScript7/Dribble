@@ -35,84 +35,36 @@ Publish the website in the LocalHost.
     <title>Dribbble</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f8f8;
-            font-family: 'Rubik', sans-serif;
-            margin-bottom: 60px;
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function zoomIn(event) {
+            event.target.style.transform = "scale(1.1)";
+            event.target.style.transition = "transform 0.2s ease-in-out";
         }
-        .navbar {
-            background-color: white;
-            border-bottom: 1px solid #e6e6e6;
+
+        function zoomOut(event) {
+            event.target.style.transform = "scale(1)";
         }
-        .navbar-brand {
-            font-size: 1.8rem;
-            font-weight: bold;
-            font-family: 'Rubik', sans-serif;
+
+        function likeHover(event) {
+            event.target.style.color = "#FF6F61";  // Change color when mouse hovers over like icon
         }
-        .search-bar {
-            width: 100%;
-            border: 1px solid #e6e6e6;
-            border-radius: 5px;
-            padding: 10px;
+
+        function likeOut(event) {
+            event.target.style.color = "black";  // Revert to the original color when mouse leaves the like icon
         }
-        .filters button {
-            font-size: 0.9rem;
-            margin-right: 10px;
+
+        function toggleLike(event) {
+            const heartIcon = event.target;
+            if (heartIcon.classList.contains("liked")) {
+                heartIcon.classList.remove("liked");
+                heartIcon.style.color = "black";  // Revert to original color when unliked
+            } else {
+                heartIcon.classList.add("liked");
+                heartIcon.style.color = "#FF6F61";  // Change color to red when liked
+            }
         }
-        .card img {
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s ease, filter 0.2s ease;
-        }
-        .card img:hover {
-            transform: scale(1.1);
-            filter: brightness(1.2);
-        }
-        .card-body {
-            padding: 0.8rem;
-        }
-        .card-title {
-            font-size: 1rem;
-            font-weight: bold;
-            margin-bottom: 0.3rem;
-        }
-        .card-subtitle {
-            font-size: 0.8rem;
-            color: gray;
-        }
-        .cards-grid {
-            margin-top: 20px;
-        }
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: gray;
-            margin-top: 10px;
-        }
-        .card-footer .likes, .card-footer .views {
-            transition: all 0.3s ease;
-        }
-        .card-footer .likes:hover, .card-footer .views:hover {
-            color: #ff6b6b;
-            cursor: pointer;
-        }
-        footer {
-            background-color: #000;
-            padding: 10px 0;
-            text-align: center;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-            box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-            color: white;
-        }
-        footer p {
-            margin: 0;
-            font-size: 0.9rem;
-        }
-    </style>
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg shadow-sm">
@@ -136,9 +88,9 @@ Publish the website in the LocalHost.
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center">
             <div class="w-50">
-                <input type="text" class="search-bar" placeholder="What are you looking for?">
+                <input type="text" class="form-control" placeholder="What are you looking for?">
             </div>
-            <div class="filters d-flex">
+            <div class="btn-group">
                 <button class="btn btn-outline-secondary">Popular</button>
                 <button class="btn btn-outline-secondary">Discover</button>
                 <button class="btn btn-outline-secondary">Animation</button>
@@ -149,120 +101,118 @@ Publish the website in the LocalHost.
         </div>
     </div>
 
-    <div class="container cards-grid">
+    <div class="container mt-4">
         <div class="row g-4">
             <div class="col-md-3">
                 <div class="card">
-                    <img src="image1.webp" class="card-img-top" alt="Card Image">
+                    <img src="image1.webp" class="card-img-top" alt="Card Image" onmousemove="zoomIn(event)" onmouseout="zoomOut(event)">
                     <div class="card-body">
                         <h5 class="card-title">Gert van Dulmen</h5>
-                        <p class="card-subtitle">Design</p>
+                        <p class="card-text">Design</p>
                     </div>
-                    <div class="card-footer">
-                        <div class="likes">❤ 100 likes</div>
-                        <div class="views">👁 6.5k views</div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <span onclick="toggleLike(event)" onmouseover="likeHover(event)" onmouseout="likeOut(event)" style="cursor:pointer;">❤ 100 likes</span>
+                        <span>👁 6.5k views</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card">
-                    <img src="image2.webp" class="card-img-top" alt="Card Image">
+                    <img src="image2.webp" class="card-img-top" alt="Card Image" onmousemove="zoomIn(event)" onmouseout="zoomOut(event)">
                     <div class="card-body">
                         <h5 class="card-title">FANCY</h5>
-                        <p class="card-subtitle">Illustration</p>
+                        <p class="card-text">Illustration</p>
                     </div>
-                    <div class="card-footer">
-                        <div class="likes">❤ 250 likes</div>
-                        <div class="views">👁 2.4k views</div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <span onclick="toggleLike(event)" onmouseover="likeHover(event)" onmouseout="likeOut(event)" style="cursor:pointer;">❤ 250 likes</span>
+                        <span>👁 2.4k views</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card">
-                    <img src="image3.webp" class="card-img-top" alt="Card Image">
+                    <img src="image3.webp" class="card-img-top" alt="Card Image" onmousemove="zoomIn(event)" onmouseout="zoomOut(event)">
                     <div class="card-body">
                         <h5 class="card-title">Bato</h5>
-                        <p class="card-subtitle">Web Design</p>
+                        <p class="card-text">Web Design</p>
                     </div>
-                    <div class="card-footer">
-                        <div class="likes">❤ 300 likes</div>
-                        <div class="views">👁 3.1k views</div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <span onclick="toggleLike(event)" onmouseover="likeHover(event)" onmouseout="likeOut(event)" style="cursor:pointer;">❤ 300 likes</span>
+                        <span>👁 3.1k views</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card">
-                    <img src="image4.webp" class="card-img-top" alt="Card Image">
+                    <img src="image4.webp" class="card-img-top" alt="Card Image" onmousemove="zoomIn(event)" onmouseout="zoomOut(event)">
                     <div class="card-body">
                         <h5 class="card-title">Sigma</h5>
-                        <p class="card-subtitle">Animation Logos</p>
+                        <p class="card-text">Animation Logos</p>
                     </div>
-                    <div class="card-footer">
-                        <div class="likes">❤ 150 likes</div>
-                        <div class="views">👁 1.8k views</div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <span onclick="toggleLike(event)" onmouseover="likeHover(event)" onmouseout="likeOut(event)" style="cursor:pointer;">❤ 150 likes</span>
+                        <span>👁 1.8k views</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card">
-                    <img src="image5.webp" class="card-img-top" alt="Card Image">
+                    <img src="image5.webp" class="card-img-top" alt="Card Image" onmousemove="zoomIn(event)" onmouseout="zoomOut(event)">
                     <div class="card-body">
                         <h5 class="card-title">Graphtheory</h5>
-                        <p class="card-subtitle">Branding</p>
+                        <p class="card-text">Branding</p>
                     </div>
-                    <div class="card-footer">
-                        <div class="likes">❤ 220 likes</div>
-                        <div class="views">👁 4.1k views</div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <span onclick="toggleLike(event)" onmouseover="likeHover(event)" onmouseout="likeOut(event)" style="cursor:pointer;">❤ 220 likes</span>
+                        <span>👁 4.1k views</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card">
-                    <img src="image6.webp" class="card-img-top" alt="Card Image">
+                    <img src="image6.webp" class="card-img-top" alt="Card Image" onmousemove="zoomIn(event)" onmouseout="zoomOut(event)">
                     <div class="card-body">
                         <h5 class="card-title">CoricDesign</h5>
-                        <p class="card-subtitle">Illustration</p>
+                        <p class="card-text">Illustration</p>
                     </div>
-                    <div class="card-footer">
-                        <div class="likes">❤ 130 likes</div>
-                        <div class="views">👁 2.5k views</div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <span onclick="toggleLike(event)" onmouseover="likeHover(event)" onmouseout="likeOut(event)" style="cursor:pointer;">❤ 130 likes</span>
+                        <span>👁 2.5k views</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card">
-                    <img src="image7.webp" class="card-img-top" alt="Card Image">
+                    <img src="image7.webp" class="card-img-top" alt="Card Image" onmousemove="zoomIn(event)" onmouseout="zoomOut(event)">
                     <div class="card-body">
                         <h5 class="card-title">Mahjabin</h5>
-                        <p class="card-subtitle">Web Design</p>
+                        <p class="card-text">Web Design</p>
                     </div>
-                    <div class="card-footer">
-                        <div class="likes">❤ 180 likes</div>
-                        <div class="views">👁 1.7k views</div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <span onclick="toggleLike(event)" onmouseover="likeHover(event)" onmouseout="likeOut(event)" style="cursor:pointer;">❤ 180 likes</span>
+                        <span>👁 1.7k views</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card">
-                    <img src="image8.webp" class="card-img-top" alt="Card Image">
+                    <img src="image8.webp" class="card-img-top" alt="Card Image" onmousemove="zoomIn(event)" onmouseout="zoomOut(event)">
                     <div class="card-body">
                         <h5 class="card-title">GeekArts</h5>
-                        <p class="card-subtitle">Animation</p>
+                        <p class="card-text">Animation</p>
                     </div>
-                    <div class="card-footer">
-                        <div class="likes">❤ 220 likes</div>
-                        <div class="views">👁 5k views</div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <span onclick="toggleLike(event)" onmouseover="likeHover(event)" onmouseout="likeOut(event)" style="cursor:pointer;">❤ 220 likes</span>
+                        <span>👁 5k views</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer>
-        <p>Designed and Developed by A. Ranen Joseph Solomon (24006171)</p>
+    <footer style="text-align:center; padding:20px; background-color:#f8f9fa; margin-top:20px;">
+        <p>Designed and Developed by A. Ranen Joseph (24006171)</p>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 ```
